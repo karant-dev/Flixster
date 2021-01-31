@@ -31,6 +31,8 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     Context context;
@@ -70,17 +72,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivPoster;
-        RelativeLayout container;
+        @BindView(R.id.tvTitle) TextView tvTitle;
+        @BindView(R.id.tvOverview) TextView tvOverview;
+        @BindView(R.id.ivPoster) ImageView ivPoster;
+        @BindView(R.id.container) RelativeLayout container;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverview);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
-            container = itemView.findViewById(R.id.container);
         }
 
         public void bind(Movie movie) {

@@ -25,6 +25,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.parceler.Parcels;
 
+import butterknife.BindView;
 import okhttp3.Headers;
 
 public class MovieDetailsActivity extends YouTubeBaseActivity {
@@ -32,20 +33,15 @@ public class MovieDetailsActivity extends YouTubeBaseActivity {
     public static final String YOUTUBE_API_KEY = "AIzaSyAue8c8L8cKOR_FaoOSdeZHr6QjmEjRrJY";
     public static final String VIDEOS_URL = "https://api.themoviedb.org/3/movie/%d/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
-    TextView tvDetailTitle;
-    TextView tvDetailOverview;
-    RatingBar ratingBar;
-    YouTubePlayerView youTubePlayerView;
+    @BindView(R.id.tvDetailTitle) TextView tvDetailTitle;
+    @BindView(R.id.tvDetailOverview) TextView tvDetailOverview;
+    @BindView(R.id.ratingBar) RatingBar ratingBar;
+    @BindView(R.id.player) YouTubePlayerView youTubePlayerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        tvDetailTitle = findViewById(R.id.tvDetailTitle);
-        tvDetailOverview = findViewById(R.id.tvDetailOverview);
-        ratingBar = findViewById(R.id.ratingBar);
-        youTubePlayerView = findViewById(R.id.player);
-
         Movie movie = Parcels.unwrap(getIntent().getParcelableExtra("movie"));
         tvDetailTitle.setText(movie.getTitle());
         tvDetailOverview.setText(movie.getOverview());
