@@ -3,7 +3,10 @@ package com.unit1.flixster.models;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.util.Log;
+import android.view.Window;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;

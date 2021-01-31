@@ -1,5 +1,6 @@
 package com.unit1.flixster.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -73,7 +74,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvOverview;
         ImageView ivPoster;
         RelativeLayout container;
-        LinearLayout movieDetailsContainer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -81,7 +81,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
             container = itemView.findViewById(R.id.container);
-            movieDetailsContainer = itemView.findViewById(R.id.movieDetailsContainer);
         }
 
         public void bind(Movie movie) {
@@ -99,8 +98,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 public void onClick(View v) {
                     Intent i = new Intent(context, MovieDetailsActivity.class);
                     i.putExtra("movie", Parcels.wrap(movie));
-                    ActivityOptionsCompat options = ActivityOptionsCompat.
-                            makeSceneTransitionAnimation(MainActivity.this, (View) movieDetailsContainer, "explode");
                     context.startActivity(i);
                 }
             });
