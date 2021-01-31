@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
@@ -52,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
                 try {
-                    Toast.makeText(MainActivity.this, "Movie data loaded", Toast.LENGTH_SHORT).show();
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG, "Results " + results.toString());
                     movies.addAll(Movie.fromJsonArray(results));

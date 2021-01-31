@@ -1,22 +1,32 @@
 package com.unit1.flixster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.FitCenter;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.unit1.flixster.MainActivity;
 import com.unit1.flixster.R;
+import com.unit1.flixster.models.MovieDetailsActivity;
 import com.unit1.flixster.models.Movie;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -62,12 +72,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         TextView tvTitle;
         TextView tvOverview;
         ImageView ivPoster;
+        RelativeLayout container;
+        LinearLayout movieDetailsContainer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvOverview = itemView.findViewById(R.id.tvOverview);
             ivPoster = itemView.findViewById(R.id.ivPoster);
+            container = itemView.findViewById(R.id.container);
+            movieDetailsContainer = itemView.findViewById(R.id.movieDetailsContainer);
         }
 
         public void bind(Movie movie) {
@@ -79,7 +93,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             } else {
                 imageURL = movie.getPosterPath();
             }
-            Glide.with(context).load(imageURL).placeholder(R.drawable.transparentplaceholder).error(R.drawable.error).fallback(R.drawable.placeholder).into(ivPoster);
+            Glide.with(context).load(imageURL).transforms(new FitCenter(), new RoundedCorners(15)).placeholder(R.drawable.transparentplaceholder).error(R.drawable.error).fallback(R.drawable.placeholder).into(ivPoster);
+            container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(context, MovieDetailsActivity.class);
+                    i.putExtra("movie", Parcels.wrap(movie));
+                    ActivityOptionsCompat options = ActivityOptionsCompat.
+                            makeSceneTransitionAnimation(MainActivity.this, (View) movieDetailsContainer, "explode");
+                    context.startActivity(i);
+                }
+            });
         }
     }
 }

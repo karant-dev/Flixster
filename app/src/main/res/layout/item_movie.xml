@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -23,8 +24,8 @@
         android:layout_marginTop="13dp"
         android:layout_marginEnd="5dp"
         android:layout_toEndOf="@+id/ivPoster"
-        android:textSize="24sp"
         android:textColor="#ffffff"
+        android:textSize="24sp"
         tools:text="Movie Title" />
 
     <TextView
@@ -39,6 +40,7 @@
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="-15dp"
         android:layout_toEndOf="@+id/ivPoster"
+        android:transitionName="explode"
         android:textColor="#ffffff"
         tools:text="This is where a brief overview of the movie will show up" />
 </RelativeLayout>
