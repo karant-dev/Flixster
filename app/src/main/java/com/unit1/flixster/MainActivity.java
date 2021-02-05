@@ -1,15 +1,16 @@
 package com.unit1.flixster;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.unit1.flixster.adapters.MovieAdapter;
+import com.unit1.flixster.databinding.ActivityMainBinding;
 import com.unit1.flixster.models.Movie;
 
 import org.json.JSONArray;
@@ -19,31 +20,32 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import okhttp3.Headers;
 
 public class MainActivity extends AppCompatActivity {
 
+    private ActivityMainBinding binding;
     public static final String NOW_PLAYING_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     public static final String TAG = "MainActivity";
-    @BindView(R.id.rvMovies) RecyclerView rvMovies;
 
     List<Movie> movies;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
+        setContentView(view);
         movies = new ArrayList<>();
 
         // Create adapter
         final MovieAdapter movieAdapter = new MovieAdapter(this, movies);
 
         // Attach adapter to RV
-        rvMovies.setAdapter(movieAdapter);
+        binding.rvMovies.setAdapter(movieAdapter);
 
         // Set Layout Manager
-        rvMovies.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(NOW_PLAYING_URL, new JsonHttpResponseHandler() {

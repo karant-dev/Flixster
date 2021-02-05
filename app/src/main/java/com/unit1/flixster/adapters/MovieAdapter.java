@@ -1,6 +1,5 @@
 package com.unit1.flixster.adapters;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -8,30 +7,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.unit1.flixster.MainActivity;
 import com.unit1.flixster.R;
-import com.unit1.flixster.models.MovieDetailsActivity;
+import com.unit1.flixster.databinding.ItemMovieBinding;
 import com.unit1.flixster.models.Movie;
+import com.unit1.flixster.models.MovieDetailsActivity;
 
 import org.parceler.Parcels;
 
 import java.util.List;
 
-import butterknife.BindView;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
@@ -54,8 +45,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d("MovieAdapter", "onCreateViewHolder");
-        View movieView = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false);
-        return new ViewHolder(movieView);
+        return new ViewHolder(ItemMovieBinding.inflate(LayoutInflater.from(parent.getContext()),
+                parent, false));
     }
 
     @Override
@@ -72,26 +63,24 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tvTitle) TextView tvTitle;
-        @BindView(R.id.tvOverview) TextView tvOverview;
-        @BindView(R.id.ivPoster) ImageView ivPoster;
-        @BindView(R.id.container) RelativeLayout container;
+        ItemMovieBinding binding;
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+        public ViewHolder(@NonNull ItemMovieBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
         public void bind(Movie movie) {
-            tvTitle.setText(movie.getTitle());
-            tvOverview.setText(movie.getOverview());
+            binding.tvTitle.setText(movie.getTitle());
+            binding.tvOverview.setText(movie.getOverview());
             String imageURL;
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
                 imageURL = movie.getBackdropPath();
             } else {
                 imageURL = movie.getPosterPath();
             }
-            Glide.with(context).load(imageURL).transforms(new FitCenter(), new RoundedCorners(15)).placeholder(R.drawable.transparentplaceholder).error(R.drawable.error).fallback(R.drawable.placeholder).into(ivPoster);
-            container.setOnClickListener(new View.OnClickListener() {
+            Glide.with(context).load(imageURL).transforms(new FitCenter(), new RoundedCorners(15)).placeholder(R.drawable.transparentplaceholder).error(R.drawable.error).fallback(R.drawable.placeholder).into(binding.ivPoster);
+            binding.container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent i = new Intent(context, MovieDetailsActivity.class);
