@@ -57,7 +57,7 @@ Describe any challenges encountered while building the app.
 
 URL - https://imgur.com/0e08TTH.gif
 
-<img src='https://imgur.com/0e08TTH.gif' width=250/><br>
+<img src='https://imgur.com/0e08TTH.gif' width='250' ><br>
 
 ### Open-source libraries used
 
